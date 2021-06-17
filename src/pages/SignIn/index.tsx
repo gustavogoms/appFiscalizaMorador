@@ -12,8 +12,6 @@ import getValidationErros from '../../utils/getValidationErrors';
 
 import { Container,
      Title,
-     ForgotPassword, 
-     ForgotPasswordText,
      CreateAccountButton,
      CreateAccountButtonText } from './styles';
 
@@ -23,7 +21,7 @@ import { Container,
         password: string;
     }    
 
-import FiscalizaMorador from '../../../src/assets/images/AmareloFiscalizaMorador.png';
+import FiscalizaMorador from '../../assets/images/BrancoFiscalizaMorador.png';
 
 const SignIn: React.FC = () => {
 
@@ -31,9 +29,7 @@ const SignIn: React.FC = () => {
     const passwordInputRef = useRef<TextInput>(null);
     const navigation = useNavigation();
 
-    const { signIn } = useAuth();
-
-    //console.log(user);
+    const { signIn, user } = useAuth();
 
     formRef.current?.setFieldValue
 
@@ -53,10 +49,12 @@ const SignIn: React.FC = () => {
             });
     
             await signIn({
+              
               email: data.email,
               password: data.password,
             });
-            //history.push('/dashboard');
+            console.log("teste2")
+
           } catch (err) {
             if (err instanceof Yup.ValidationError) {
               const errors = getValidationErros(err);
@@ -117,13 +115,6 @@ const SignIn: React.FC = () => {
         }}> Entrar </Button>
 
 </Form>
-
-
-       
-
-        <ForgotPassword onPress={() => {}}>
-            <ForgotPasswordText> Esqueci a minha senha </ForgotPasswordText>
-        </ForgotPassword>
         
         
     </Container>
@@ -133,7 +124,7 @@ const SignIn: React.FC = () => {
     </KeyboardAvoidingView>
 
         <CreateAccountButton onPress={() => navigation.navigate('SignUp')}>
-            <Icon name="log-in" size={20} color='#EBC42A' />
+            <Icon name="log-in" size={20} color='#F5F5F5' />
             
             <CreateAccountButtonText> Criar uma conta </CreateAccountButtonText>
             

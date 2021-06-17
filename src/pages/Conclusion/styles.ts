@@ -11,7 +11,7 @@ padding: 0 24px;
 
 export const Title = styled.Text `
 font-size: 22px;
-color: #f1f1f1;
+color: #F5F5F5;
 font-family: 'Montserrat-Medium'
 margin-top: 48px;
 text-align: center;
@@ -19,17 +19,20 @@ text-align: center;
 `;
 
 export const OkButton = styled(RectButton) `
-background: #EBC42A;
+width: 90px;
+height: 60px;
+background: #F5F5F5;
+border-radius: 10px;
+margin-top: 12px;
+
 justify-content: center;
 align-items: center;
-border-radius: 10px;
-margin-top: 24px;
-padding: 12px 24px;
+
 `;
 
 export const OkButtonText = styled.Text `
 font-family: 'Montserrat-Medium';
-color: #232129;
+color: #222;
 font-size: 18px;
 
 `;

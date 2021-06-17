@@ -3,19 +3,19 @@ import { Container, Title, OkButton, OkButtonText } from './styles';
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/core';
 
-const AppointmentCreated: React.FC = ()=> {
+const Conclusion: React.FC = ()=> {
     const { reset } = useNavigation();
 
     const handleOkPressed = useCallback(() => {
 
         reset({
-            routes: [{ name: 'SignIn'}],
+            routes: [{ name: 'Dashboard'}],
             index: 0,
         });
     }, [reset])
 
     return <Container>
-        <Icon name='check-square' size={110} color="#EBC42A" />
+        <Icon name='check-square' size={110} color="#F5F5F5" />
         <Title> Ocorrência aberta com sucesso! </Title>
         <OkButton onPress={handleOkPressed}>
             <OkButtonText>
@@ -26,4 +26,4 @@ const AppointmentCreated: React.FC = ()=> {
 
 };
 
-export default AppointmentCreated;
+export default Conclusion;

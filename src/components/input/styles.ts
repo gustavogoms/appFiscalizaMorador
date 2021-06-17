@@ -7,7 +7,7 @@ interface ContainerProps {
 }
 
 export const Container = styled.View `
-width: 100%;
+width: 350px;
 height: 60px;
 padding: 0 16px;
 background: #232129;
@@ -29,14 +29,14 @@ border-color: #c53030;
 ${(props) => 
     props.isFocused && 
     css `
-border-color: #EBC42A
+border-color: #28a745
 `}
 
 `;
 
 export const TextInput = styled.TextInput `
 flex: 1;
-color: #EBC42A;
+color: #28a745;
 font-size: 16px;
 font-family: 'Montserrat-Regular';
 `;

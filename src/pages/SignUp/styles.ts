@@ -9,7 +9,7 @@ padding: 0 30px;
 
 export const Title = styled.Text`
 font-size: 29px;
-color: #EBC42A;
+color: #F5F5F5;
 font-family: 'Montserrat-Medium';
 margin: 64px 0 24px;
 `;
@@ -29,7 +29,7 @@ flex-direction: row;
 `;
 
 export const BackToSignInButtonText = styled.Text`
-color: #EBC42A;
+color: #F5F5F5;
 font-size: 18px;
 font-family: 'Montserrat-Regular';
 margin-left: 16px;

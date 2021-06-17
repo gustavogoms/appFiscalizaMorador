@@ -9,7 +9,7 @@ padding: 0 30px;
 
 export const Title = styled.Text`
 font-size: 24px;
-color: #EBC42A;
+color: #F5F5F5;
 font-family: 'Montserrat-Medium';
 margin: 24px 0 24px;
 `;
@@ -19,7 +19,7 @@ margin-top: 24px
 `;
 
 export const ForgotPasswordText = styled.Text`
-color: #EBC42A;
+color: #F5F5F5;
 font-size: 18px;
 font-family: 'Montserrat-Regular'
 `;
@@ -38,7 +38,7 @@ flex-direction: row;
 `;
 
 export const CreateAccountButtonText = styled.Text`
-color: #EBC42A;
+color: #F5F5F5;
 font-size: 18px;
 font-family: 'Montserrat-Regular';
 margin-left: 16px;
