@@ -14,9 +14,10 @@ const InsertInformation: React.FC = () => {
   const navigation = useNavigation();
 
   const [description, setDescription] = useState('');
-  const [image, setImage] = useState('');
+  const [image, setImage] = useState<string | undefined>('');
 
   function handleRegister() {
+    navigation.navigate('Conclusion')
     const data = {
       description,
       image
@@ -31,13 +32,14 @@ const InsertInformation: React.FC = () => {
       mediaType: 'photo',
       quality: 1
     }, (response) => {
-      console.log('Response = ', response);
+      //console.log('Response = ', response);
 
       if (response.didCancel) {
         return;
       }
       else {
-        (response.uri)
+        
+        setImage(response.uri)
 
 
       }
@@ -48,7 +50,6 @@ const InsertInformation: React.FC = () => {
   return (
 
     <>
-
       <CameraButton onPress={handleImage}>
         <Entypo name="camera" size={50} color='#222' />
         <CameraText> Tirar foto da ocorrência </CameraText>

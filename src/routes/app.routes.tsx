@@ -2,9 +2,9 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Dashboard from '../pages/Dashboard';
-import AppointmentCreated from '../pages/Conclusion';
-import InsertAppointment from '../pages/InsertInformation';
+import Conclusion from '../pages/Conclusion';
 import AddAdress from '../pages/AddAdress';
+import InsertInformation from '../pages/InsertInformation';
 
 const App = createStackNavigator();
 
@@ -17,8 +17,8 @@ const AppRoutes: React.FC = () => (
     initialRouteName="Dashboard"
     >
     <App.Screen name="Dashboard" component={Dashboard} />
-    <App.Screen name="AppointmentCreated" component={AppointmentCreated} />
-    <App.Screen name="InsertAppointment" component={InsertAppointment} />
+    <App.Screen name="Conclusion" component={Conclusion} />
+    <App.Screen name="InsertInformation" component={InsertInformation} />
     <App.Screen name="AddAdress" component={AddAdress} />              
     </App.Navigator>
 );

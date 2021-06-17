@@ -10,7 +10,9 @@ import Icon from "react-native-vector-icons/Feather";
 
 const latitudeDelta = 0.025;
 const longitudeDelta = 0.025;
-export default class LocationPickerDemo extends React.Component<any, any> {
+
+
+export  class LocationPickerDemo extends React.Component<any, any> {
 
 
     searchText: any;
@@ -206,7 +208,7 @@ export default class LocationPickerDemo extends React.Component<any, any> {
                         value={this.state.address}
                     />
                     <TouchableOpacity
-                        onPress={() => { }}
+                        onPress={() => this.props.navigation.navigate('InsertInformation')}
                         style={{
                             width: "50%",
                             alignSelf: "center",
@@ -277,6 +279,11 @@ const styles = StyleSheet.create({
     },
 });
 
+    export default function(props: any) {
+    const navigation = useNavigation();
+    return <LocationPickerDemo {...props} navigation={navigation} />;
+
+    }
 //const navigation = useNavigation();
 
 //onPress={() => navigation.navigate('InsertAppointment')}
