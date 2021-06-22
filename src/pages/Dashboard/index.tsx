@@ -16,19 +16,13 @@ import {
 import Card from '../../components/card';
 
 const Dashboard: React.FC = () => {
-
-
     return(
         <Container>
-                
-            
            <StatusBar
-
             barStyle="light-content"
             backgroundColor="transparent"
             translucent
             />
-            
             <Header>
                 <HeaderContent>
                 <Logo 
@@ -36,13 +30,9 @@ const Dashboard: React.FC = () => {
                 height={RFValue(40)}
                  />
                  <HeaderText>Selecione o serviço desejado</HeaderText>
-
                  </HeaderContent>
-
             </Header>
-                       
             <Card />
-
         </Container>
     )
 }
