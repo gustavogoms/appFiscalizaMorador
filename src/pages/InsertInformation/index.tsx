@@ -17,7 +17,7 @@ const InsertInformation: React.FC = () => {
     navigation.navigate('Conclusion')
   };
 
-  const updateDescription = (description) => {
+  const updateDescription = (description: any) => {
     setAppState({
       ...appState,
       description

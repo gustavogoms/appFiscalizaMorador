@@ -6,7 +6,7 @@ import { useAuth } from '../../hooks/Auth';
 import { useAppState } from '../../hooks';
 
 const Conclusion: React.FC = ()=> {
-    const { signOut } = useAuth();
+    const { signOut, user } = useAuth();
     const { reset } = useNavigation();
     const [appState, setAppState] = useAppState();
 
@@ -20,7 +20,8 @@ const Conclusion: React.FC = ()=> {
     return <Container>
         <Icon name='check-square' size={110} color="#F5F5F5" />
         <Title> Ocorrência aberta com sucesso! 
-            {appState.description}
+            {JSON.stringify(user)},
+            {JSON.stringify(appState)}
         </Title>
         <OkButton onPress={signOut}>
             <OkButtonText>

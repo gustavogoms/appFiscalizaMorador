@@ -16,6 +16,7 @@ import {
 import Card from '../../components/card';
 
 const Dashboard: React.FC = () => {
+
     return(
         <Container>
            <StatusBar

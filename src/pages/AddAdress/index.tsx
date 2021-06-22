@@ -172,7 +172,9 @@ export  class LocationPicker extends React.Component<any, any> {
                                 padding: 0,
                             }}
                         />
-                        <Text style={styles.addressText}>Seu endereço</Text>
+                        <Text style={styles.addressText}>Seu endereço
+                        {this.props.ocorrenciaId}
+                        </Text>
                     </View>
                     <TextInput
                         multiline={true}
@@ -270,10 +272,10 @@ export default function(props: any) {
     const navigation = useNavigation();
     const [appState, setAppState] = useAppState()
     
-    const onLocationSelected = (locationSelected) => { 
-        setAppState({...appState, location: locationSelected})
+    const onLocationSelected = (locationSelected: any) => { 
+        setAppState({...appState, address: locationSelected.address})
         navigation.navigate('InsertInformation')
     }
 
-    return <LocationPicker {...props} onLocationSelected={onLocationSelected} />;
+    return <LocationPicker {...props} ocorrenciaId={appState.ocorrenciaId} onLocationSelected={onLocationSelected} />;
 }
