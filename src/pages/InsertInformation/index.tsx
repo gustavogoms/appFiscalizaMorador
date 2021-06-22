@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   CameraButton, Title, CameraText, Container, AppointmentText,
-  ConfirmationButton, ConfirmationButtonText, ConfirmationButtonView
+  ConfirmationButton, ConfirmationButtonText
 } from './styles';
 import Entypo from 'react-native-vector-icons/Entypo';
 import { useNavigation } from '@react-navigation/native';
@@ -32,7 +32,6 @@ const InsertInformation: React.FC = () => {
       mediaType: 'photo',
       quality: 1
     }, (response) => {
-      //console.log('Response = ', response);
 
       if (response.didCancel) {
         return;
@@ -83,8 +82,3 @@ const InsertInformation: React.FC = () => {
 export default InsertInformation;
 
 
-
-/*
-<ConfirmationButton onPress={() => navigation.navigate('Conclusion')}>
-
-*/
