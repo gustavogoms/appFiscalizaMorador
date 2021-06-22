@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {
     Image, StyleSheet, Text, View, TextInput, TouchableOpacity,
     KeyboardAvoidingView
@@ -7,14 +7,13 @@ import { useNavigation } from '@react-navigation/native';
 import MapView, { MapEvent, Marker } from "react-native-maps";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Icon from "react-native-vector-icons/Feather";
+import { useAppState } from "../../hooks";
 
 const latitudeDelta = 0.025;
 const longitudeDelta = 0.025;
 
 
-export  class LocationPickerDemo extends React.Component<any, any> {
-
-
+export class LocationPickerDemo extends React.Component<any, any> {
     searchText: any;
     mapView: any;
     state = {
@@ -41,6 +40,11 @@ export  class LocationPickerDemo extends React.Component<any, any> {
         currentLng: "",
         forceRefresh: 0,
     };
+
+    componentDidMount() : void {
+        this.props.appUseEffect(this.getCurrentAddress, [this.props.appState]);
+    }
+
     goToInitialLocation = (region: any) => {
         let initialRegion = Object.assign({}, region);
         initialRegion["latitudeDelta"] = 0.005;
@@ -48,18 +52,16 @@ export  class LocationPickerDemo extends React.Component<any, any> {
         this.mapView.animateToRegion(initialRegion, 2000);
     };
     onRegionChange = (region: any) => {
-        this.setState({
+        this.props.setAppState({
+            ...this.props.appState,
             region: region,
             forceRefresh: Math.floor(Math.random() * 100),
-        },
-
-
-            this.getCurrentAddress
-        );
+        });
     };
 
     onPoiClick = (event: MapEvent) => {
-        this.setState({
+        this.props.setAppState({
+            ...this.props.appState,
             region: event.nativeEvent.coordinate,
             forceRefresh: Math.floor(Math.random() * 100),
             marker:  {
@@ -67,51 +69,44 @@ export  class LocationPickerDemo extends React.Component<any, any> {
                 key: 1,
                 color: "#ff0000",
               },
-        },
-
-
-            this.getCurrentAddress
-        );
-      
-
-
+        });
     }
 
     getCurrentAddress() {
-        fetch('https:\/\/maps.googleapis.com/maps/api/geocode/json?address=' + this.state.region.latitude +
-            "," + this.state.region.longitude + "&key=" + 'AIzaSyCV1xfl8LMea8OKFNdAlPnh6OOqKBh4xsA')
+        fetch('https:\/\/maps.googleapis.com/maps/api/geocode/json?address=' + this.props.appState.region.latitude +
+            "," + this.props.appState.region.longitude + "&key=" + 'AIzaSyCV1xfl8LMea8OKFNdAlPnh6OOqKBh4xsA')
             .then((response) => response.json()).then((responseJson) => {
-                this.setState(
+                this.setAppState(
                     {
+                        ...this.props.appState,
                         address: JSON.stringify(responseJson.results[0].formatted_address)
                             .replace(/"/g, "")
                     });
             });
     }
     render() {
-        const { region } = this.state;
-
+        const { region } = this.props.appState;
         return (
             <View style={styles.map}>
                 <MapView
                     ref={(ref) => (this.mapView = ref)}
                     onMapReady={() =>
-                        this.goToInitialLocation(this.state.region)}
+                        this.goToInitialLocation(this.props.appState.region)}
                     style={styles.map}
                     onPress={this.onPoiClick}
                     
                 > 
                   <Marker 
-              key={this.state.marker.key}
-              coordinate={this.state.marker?.coordinate}
-              pinColor={this.state.marker?.color}
+              key={this.props.appState.marker.key}
+              coordinate={this.props.appState.marker?.coordinate}
+              pinColor={this.props.appState.marker?.color}
             />
                 
             </MapView>
 
                 <View style={styles.panel}>
                     <View style={[styles.panelHeader,
-                    this.state.listViewDisplayed ? styles.panelFill : styles.panel,]}>  
+                    this.props.appState.listViewDisplayed ? styles.panelFill : styles.panel,]}>  
                       <GooglePlacesAutocomplete
                             currentLocation={false}
                             enableHighAccuracyLocation={true}
@@ -123,7 +118,8 @@ export  class LocationPickerDemo extends React.Component<any, any> {
                             enablePoweredByContainer={false}
                             listUnderlayColor="lightgrey"
                             onPress={(data, details) => {
-                                this.setState({
+                                this.props.setAppState({ 
+                                    ...this.props.appState, 
                                     listViewDisplayed: false,
                                     address: data.description,
                                     currentLat: details?.geometry.location.lat,
@@ -135,12 +131,13 @@ export  class LocationPickerDemo extends React.Component<any, any> {
                                         longitude: details?.geometry.location.lng,
                                     },
                                 });
+
                                 this.searchText.setAddressText("");
-                                this.goToInitialLocation(this.state.region);
+                                this.goToInitialLocation(this.props.appState.region);
                             }}
                             textInputProps={{
                                 onChangeText: (text) => {
-                                    this.setState({ listViewDisplayed: true });
+                                    this.props.setAppState({ ...this.props.appState, listViewDisplayed: true });
                                 },
                             }}
 
@@ -204,8 +201,8 @@ export  class LocationPickerDemo extends React.Component<any, any> {
                             textAlignVertical: "top",
                             fontFamily: "Calibri",
                         }}
-                        onChangeText={(text) => this.setState({ address: text })}
-                        value={this.state.address}
+                        onChangeText={(text) => this.props.setAppState({ ...this.props.appState, address: text })}
+                        value={this.props.appState.address}
                     />
                     <TouchableOpacity
                         onPress={() => this.props.navigation.navigate('InsertInformation')}
@@ -228,7 +225,7 @@ export  class LocationPickerDemo extends React.Component<any, any> {
                                 paddingVertical: 4,
                             }}>
                             Salvar Endereço
-       </Text>
+                        </Text>
                     </TouchableOpacity>
                 </KeyboardAvoidingView>
             </View>
@@ -279,11 +276,12 @@ const styles = StyleSheet.create({
     },
 });
 
-    export default function(props: any) {
+export default function(props: any) {
     const navigation = useNavigation();
-    return <LocationPickerDemo {...props} navigation={navigation} />;
-
-    }
-//const navigation = useNavigation();
-
-//onPress={() => navigation.navigate('InsertAppointment')}
+    const [appState, setAppState] = useAppState();
+    return <LocationPickerDemo {...props} 
+        navigation={navigation} 
+        appUseEffect={useEffect}
+        appState={appState} 
+        setAppState={setAppState}/>;
+}
