@@ -1,34 +1,33 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Container, Title, OkButton, OkButtonText } from './styles';
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/core';
 import { useAuth } from '../../hooks/Auth';
 import { useAppState } from '../../hooks';
 
-const Conclusion: React.FC = ()=> {
+const Conclusion: React.FC = () => {
     const { signOut, user } = useAuth();
     const { reset } = useNavigation();
     const [appState, setAppState] = useAppState();
 
-    const handleOkPressed = useCallback(() => {
+    const handleOkPressed = async () => {
         reset({
-            routes: [{ name: 'Dashboard'}],
+            routes: [{ name: 'Dashboard' }],
             index: 0,
         });
-    }, [reset])
+
+    };
 
     return <Container>
         <Icon name='check-square' size={110} color="#F5F5F5" />
-        <Title> Ocorrência aberta com sucesso! 
-            {JSON.stringify(user)},
-            {JSON.stringify(appState)}
+        <Title> Ocorrência aberta com sucesso!
         </Title>
-        <OkButton onPress={signOut}>
+        <OkButton onPress={handleOkPressed}>
             <OkButtonText>
                 Ok
             </OkButtonText>
-             </OkButton>
-         </Container>;
+        </OkButton>
+    </Container>;
 
 };
 

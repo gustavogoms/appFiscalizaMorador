@@ -8,12 +8,24 @@ import { useNavigation } from '@react-navigation/native';
 import InsertDescriptionInput from '../../components/InsertDescriptionInput';
 import * as ImagePicker from 'react-native-image-picker';
 import { useAppState } from '../../hooks';
+import api from '../../services/api';
+import {useAuth} from '../../hooks/Auth';
 
 const InsertInformation: React.FC = () => {
   const navigation = useNavigation();
   const [appState, setAppState] = useAppState();
+  const {user} = useAuth();
 
-  function handleRegister() {
+  async function handleRegister() {
+    console.log(user)
+    const response = await api.post('occurrence', {
+      user_id: user.id,
+      type: appState.ocorrenciaId,
+      location: appState.address,
+      photo: appState.image,
+      description: appState.description,
+
+    });
     navigation.navigate('Conclusion')
   };
 
